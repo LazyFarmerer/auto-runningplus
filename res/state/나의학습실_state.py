@@ -19,6 +19,11 @@ class 나의학습실State(State[Site]):
         # [1:] 로 첫번째 제외하는 이유: 표 가장 위 타이틀임 ㅋㅋㅋㅋ
         self.수강리스트 = el.find_elements(By.CSS_SELECTOR, "tr")[1:]
 
+        if self.수강리스트[0].text == "수강중인 과정이 없습니다.":
+            # 다 들었음, 그냥 종료
+            self.exit()
+
+
     def execute(self) -> None:
         result = list(filter(lambda x: "100%" != x.find_element(By.CLASS_NAME, "right").text.strip(), self.수강리스트))
         if result:
@@ -29,4 +34,6 @@ class 나의학습실State(State[Site]):
         quit()
 
     def exit(self) -> None:
-        pass
+        # self.obj.driver.close()
+        print("종료 함")
+        self.obj.is_run = False

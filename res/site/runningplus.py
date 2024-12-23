@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -15,14 +17,20 @@ from ..state.state_type import 러닝플러스StateType
 
 class 러닝플러스(Site):
 
-    def __init__(self, url, id, pw) -> None:
-        super().__init__(url)
+    def __init__(self) -> None:
+        super().__init__("https://www.runningplus.net/Member/Login.nm")
+
+        load_dotenv()
+        ID = os.getenv("RUNNINGPLUS_ID")
+        PW = os.getenv("RUNNINGPLUS_PW")
+        # 둘중 하나라도 없으면 종료
+        if (ID is None) or (PW is None): quit()
 
         WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located((By.ID, "mdID"))
         )
-        self.driver.find_element(By.ID, "mdID").send_keys(id)
-        self.driver.find_element(By.ID, "mdPW").send_keys(pw)
+        self.driver.find_element(By.ID, "mdID").send_keys(ID)
+        self.driver.find_element(By.ID, "mdPW").send_keys(PW)
         self.driver.find_element(By.ID, "mdPW").send_keys(Keys.ENTER)
 
         self.driver.get("https://www.runningplus.net/Mystudy/MyStudyList.nm")
