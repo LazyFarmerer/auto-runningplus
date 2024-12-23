@@ -13,6 +13,11 @@ from .state_type import 러닝플러스StateType
 
 
 class 학습중_퀴즈State(State[Site]):
+    """순서: 
+    1. 3개의 문제가 순서대로 있고 순서대로 켜지고 나머지는 안보이는 상태
+    2. html 에 a[data-anwser='o'] 정보가 있다면 그게 정답임
+    3. 클릭 후 다음문제 클릭해야 넘어감
+    4. 그와중에 마지막 문제 풀고나면 유형확인 버튼까지 눌러야 함"""
     def enter(self) -> None:
         self.util.tab(self.obj.driver, 2)
         self.obj.driver.switch_to.frame("iframeAreaBox")

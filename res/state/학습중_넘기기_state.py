@@ -11,6 +11,12 @@ from .state_type import 러닝플러스StateType
 
 
 class 학습중_넘기기State1(State[Site]):
+    """학습창인 상태에서 넘기기 제어: 
+    퀴즈가 있다면 퀴즈상태로 넘김
+    
+    확인 후 (id="paging" 체크)
+    - 덜 넘겼다면: 버튼 클릭
+    - 다 넘겼다면 대기상태 넘김"""
     def enter(self) -> None:
         self.util.tab(self.obj.driver, 2)
         self.obj.driver.switch_to.frame("iframeAreaBox")

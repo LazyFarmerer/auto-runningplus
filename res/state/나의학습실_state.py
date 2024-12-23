@@ -10,9 +10,8 @@ from ..site.site import Site
 from .state_type import 러닝플러스StateType
 
 class 나의학습실State(State[Site]):
-    def __init__(self, obj: Site) -> None:
-        super().__init__(obj)
-
+    """나의학습실 진입 후 시작: 
+    수강중인 과정 리스트에서 100% 가 아닌 첫번째 선택"""
     def enter(self) -> None:
         els = self.obj.driver.find_elements(By.CSS_SELECTOR, "div.pdt20")
         el = self.util.first_filter(lambda x: "수강중인 과정" in x.find_element(By.CLASS_NAME, "listTitle").text, els)

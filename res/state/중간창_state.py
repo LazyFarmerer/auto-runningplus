@@ -11,6 +11,9 @@ from .state_type import 러닝플러스StateType
 
 
 class 중간창State(State[Site]):
+    """학습실에서 클릭하면 나오는 창: 
+    100% 가 아닌 첫번째 선택\n
+    나보니까 시험치는것도 있던데 그것도 고려할 것"""
     def enter(self) -> None:
         self.util.tab(self.obj.driver, 1)
         self.obj.driver.find_element(By.XPATH, "/html/body/div[1]/div[5]/div/div[5]/div[1]/div[1]/div[4]/a").click()
