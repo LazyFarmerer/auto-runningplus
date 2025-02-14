@@ -30,9 +30,10 @@ class 나의학습실State(State[Site]):
             self.obj.state.setState(러닝플러스StateType.중간창)
             return
         # 없다면(모든 수강 완료)
+        print("종료 함")
+        self.obj.is_run = False
         quit()
 
     def exit(self) -> None:
         # self.obj.driver.close()
-        print("종료 함")
-        self.obj.is_run = False
+        return

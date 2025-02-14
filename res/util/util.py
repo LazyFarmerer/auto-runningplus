@@ -14,3 +14,6 @@ class Util:
 
     def first_filter(self, func: Callable[[WebElement], bool], webElements: List[WebElement]) -> WebElement:
         return list(filter(func, webElements))[0]
+    
+    def print(self, text: str):
+        print(text, " " * 10, end="\r")
