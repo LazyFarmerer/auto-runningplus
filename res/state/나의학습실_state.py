@@ -13,6 +13,7 @@ class 나의학습실State(State[Site]):
     """나의학습실 진입 후 시작: 
     수강중인 과정 리스트에서 100% 가 아닌 첫번째 선택"""
     def enter(self) -> None:
+        self.util.print("나의학습실State")
         els = self.obj.driver.find_elements(By.CSS_SELECTOR, "div.pdt20")
         el = self.util.first_filter(lambda x: "수강중인 과정" in x.find_element(By.CLASS_NAME, "listTitle").text, els)
         # [1:] 로 첫번째 제외하는 이유: 표 가장 위 타이틀임 ㅋㅋㅋㅋ
@@ -30,7 +31,7 @@ class 나의학습실State(State[Site]):
             self.obj.state.setState(러닝플러스StateType.중간창)
             return
         # 없다면(모든 수강 완료)
-        print("종료 함")
+        self.util.print("종료 함")
         self.obj.is_run = False
         quit()
 

@@ -9,7 +9,8 @@ class Util:
         driver.switch_to.window(new_windows[index])
 
     def match(self, text: str) -> Tuple[int, int]:
-        b, a = text.split("/ ")
+        text.replace(" ", "")
+        b, a = text.split("/")
         return int(b), int(a)
 
     def first_filter(self, func: Callable[[WebElement], bool], webElements: List[WebElement]) -> WebElement:

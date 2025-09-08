@@ -19,6 +19,7 @@ class 학습중_퀴즈State(State[Site]):
     3. 클릭 후 다음문제 클릭해야 넘어감
     4. 그와중에 마지막 문제 풀고나면 유형확인 버튼까지 눌러야 함"""
     def enter(self) -> None:
+        print("학습중_퀴즈State")
         self.util.tab(self.obj.driver, 2)
         self.obj.driver.switch_to.frame("iframeAreaBox")
 

@@ -18,6 +18,7 @@ class 학습중_넘기기State1(State[Site]):
     - 덜 넘겼다면: 버튼 클릭
     - 다 넘겼다면 대기상태 넘김"""
     def enter(self) -> None:
+        self.util.print("학습중_넘기기State1")
         self.util.tab(self.obj.driver, 2)
         self.obj.driver.switch_to.frame("iframeAreaBox")
 
@@ -45,6 +46,7 @@ class 학습중_넘기기State1(State[Site]):
 
 class 학습중_넘기기State2(State[Site]):
     def enter(self) -> None:
+        self.util.print("학습중_넘기기State2")
         self.util.tab(self.obj.driver, 2)
         self.obj.driver.switch_to.frame("iframeAreaBox")
 
@@ -73,7 +75,7 @@ class 학습중_넘기기State2(State[Site]):
 # 2025-02-06 추가
 class 학습중_넘기기State3(State[Site]):
     def enter(self) -> None:
-        pass
+        self.util.print("학습중_넘기기State3")
 
     def execute(self) -> None:
         self.util.tab(self.obj.driver, 2)
@@ -86,6 +88,30 @@ class 학습중_넘기기State3(State[Site]):
                 self.obj.state.setState(러닝플러스StateType.학습중_대기하기)
                 return
             self.obj.driver.find_element(By.CLASS_NAME, "nextBtn").click()
+        except:
+            self.obj.state.changeState(러닝플러스StateType.학습중_넘기기, 학습중_넘기기State4(self.obj))
+            self.obj.state.setState(러닝플러스StateType.학습중_넘기기)
+
+    def exit(self) -> None:
+        pass
+
+# 2026-09-04 추가
+class 학습중_넘기기State4(State[Site]):
+    def enter(self) -> None:
+        self.util.print("학습중_넘기기State4")
+
+    def execute(self) -> None:
+        self.util.tab(self.obj.driver, 2)
+        self.obj.driver.switch_to.frame("iframeAreaBox")
+        try:
+            pageNum = self.obj.driver.find_element(By.CSS_SELECTOR, "button[title='Current Page']")
+            a, b = self.util.match(pageNum.text)
+            self.util.print(f"{a} / {b}")
+            if (a != b):
+                self.obj.driver.find_element(By.CSS_SELECTOR, "button[title='Next']").click()
+                return
+            if (a == b):
+                self.obj.state.setState(러닝플러스StateType.학습중_대기하기)
         except:
             self.obj.state.changeState(러닝플러스StateType.학습중_넘기기, 학습중_넘기기State1(self.obj))
             self.obj.state.setState(러닝플러스StateType.학습중_넘기기)
